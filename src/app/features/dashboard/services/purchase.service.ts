@@ -24,19 +24,24 @@ export class PurchaseService {
     if (purchases.length === 0) return null;
     
     return purchases.reduce((latest, current) => {
-      const currentDate = new Date(current.purchaseAt);
-      const latestDate = new Date(latest.purchaseAt);
+      const currentDate = new Date(current.purchasedAt);
+      const latestDate = new Date(latest.purchasedAt);
       return currentDate > latestDate ? current : latest;
     });
   });
 
   // Obtener compras del usuario
   getPurchases() {
-    return this.http.get<GeneralResponse<Purchase[]>>(`${environment.backendUrl}/purchases`)
+    return this.http.get<GeneralResponse<Purchase[]>>(`${environment.backendUrl}/purchases/corn`)
       .pipe(
         tap(res => {
           if (res.data) {
-            this._purchases.set(res.data);
+            // Asegurar que las fechas se conviertan correctamente
+            const purchases = res.data.map(purchase => ({
+              ...purchase,
+              purchaseAt: new Date(purchase.purchasedAt)
+            }));
+            this._purchases.set(purchases);
           }
         })
       );
@@ -44,12 +49,17 @@ export class PurchaseService {
 
   // Comprar una unidad de maíz
   buyCorn() {
-    return this.http.post<GeneralResponse<Purchase>>(`${environment.backendUrl}/purchases`, {})
+    return this.http.post<GeneralResponse<Purchase>>(`${environment.backendUrl}/purchases/corn`, {})
       .pipe(
         tap(res => {
           if (res.data) {
+            // Asegurar que la fecha se convierta correctamente
+            const newPurchase = {
+              ...res.data,
+              purchaseAt: new Date(res.data.purchasedAt)
+            };
             // Agregar la nueva compra a la lista existente
-            this._purchases.update(purchases => [...purchases, res.data!]);
+            this._purchases.update(purchases => [...purchases, newPurchase]);
           }
         })
       );

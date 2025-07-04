@@ -7,4 +7,4 @@ import { BuyCornComponent } from '../../components/buy-corn/buy-corn.component';
   imports: [DashboardStatsComponent, BuyCornComponent],
   templateUrl: './home.component.html',
 })
-export default class HomeComponent { }
+export default class HomeComponent {}

@@ -1,7 +1,7 @@
 export interface Purchase {
     id: string;
     customerId: string;
-    purchaseAt: Date;
+    purchasedAt: Date;
     quantity?: number;
     price?: number;
 }
