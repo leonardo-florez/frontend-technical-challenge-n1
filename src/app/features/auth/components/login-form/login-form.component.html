@@ -1,0 +1,83 @@
+<div class="w-full max-w-md">
+  <div class="text-center mb-8">
+    <div class="text-6xl mb-4">🌽</div>
+    <h1 class="text-2xl font-bold text-amber-800 mb-2">Bob's Corn Store</h1>
+    <h2 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back!</h2>
+    <p class="text-gray-600">Sign in to your account to continue shopping</p>
+  </div>
+  
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-medium text-gray-700">Email Address</span>
+      </label>
+      <div class="relative">
+        <input 
+          type="email" 
+          placeholder="Enter your email address" 
+          class="w-full pl-10 py-3 bg-white border-2 border-gray-400 focus:border-yellow-500 focus:outline-none rounded-lg transition-colors duration-200" 
+          formControlName="email"
+          [class.border-red-500]="email?.invalid && email?.touched"
+          [class.border-green-500]="email?.valid && email?.touched"
+          required 
+        />
+        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg">
+          📧
+        </span>
+      </div>
+      <div *ngIf="email?.invalid && email?.touched" class="mt-1">
+        <span class="text-sm text-red-500">
+          <span *ngIf="email?.errors?.['required']">Email is required</span>
+          <span *ngIf="email?.errors?.['email']">Please enter a valid email address</span>
+        </span>
+      </div>
+    </div>
+    
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-medium text-gray-700">Password</span>
+      </label>
+      <div class="relative">
+        <input 
+          type="password" 
+          placeholder="Enter your password" 
+          class="w-full pl-10 py-3 bg-white border-2 border-gray-400 focus:border-yellow-500 focus:outline-none rounded-lg transition-colors duration-200" 
+          formControlName="password"
+          [class.border-red-500]="password?.invalid && password?.touched"
+          [class.border-green-500]="password?.valid && password?.touched"
+          required 
+        />
+        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg">
+          🔒
+        </span>
+      </div>
+      <div *ngIf="password?.invalid && password?.touched" class="mt-1">
+        <span class="text-sm text-red-500">
+          <span *ngIf="password?.errors?.['required']">Password is required</span>
+          <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters long</span>
+        </span>
+      </div>
+    </div>
+    
+    <div *ngIf="errorMessage" class="alert bg-red-50 border border-red-200 text-red-700 p-3 rounded-lg">
+      <div class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{{ errorMessage }}</span>
+      </div>
+    </div>
+    
+    <div class="form-control mt-8">
+      <button 
+        type="submit" 
+        class="btn w-full py-3 bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold rounded-lg border-none shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer"
+        [disabled]="loginForm.invalid || isLoading"
+      >
+        <span *ngIf="isLoading" class="loading loading-spinner loading-md"></span>
+        <span *ngIf="!isLoading" class="text-xl">🌽</span>
+        {{ isLoading ? 'Signing you in...' : 'Sign In to Store' }}
+      </button>
+    </div>
+  </form>
+</div>
