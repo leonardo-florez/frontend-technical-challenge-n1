@@ -1,0 +1,31 @@
+<div class="bg-white rounded-lg shadow-md p-4">
+  <div class="text-center">
+    <div class="text-4xl mb-3">🌽</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2">Fresh Corn</h3>
+    <p class="text-gray-600 mb-4 text-sm">Premium quality corn from Bob's farm</p>
+    
+    <div class="bg-yellow-50 rounded-lg p-3 mb-4">
+      <p class="text-2xl font-bold text-yellow-600 mb-1">$2.99</p>
+      <p class="text-xs text-gray-500">per unit</p>
+    </div>
+
+    <button 
+      (click)="buyCorn()"
+      [disabled]="isLoading"
+      class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:from-yellow-500 hover:to-orange-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm cursor-pointer"
+    >
+      <span *ngIf="!isLoading" class="flex items-center justify-center">
+        <span class="mr-2">🛒</span>
+        Buy 1 Corn
+      </span>
+      <span *ngIf="isLoading" class="flex items-center justify-center">
+        <span class="mr-2">⏳</span>
+        Processing...
+      </span>
+    </button>
+
+    <div *ngIf="message" [class]="messageClass" class="mt-3 p-2 rounded-lg text-xs">
+      {{ message }}
+    </div>
+  </div>
+</div>

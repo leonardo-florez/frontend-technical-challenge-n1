@@ -1,1 +1,58 @@
-<p>home works!</p>,
+<div class="bg-gray-50">
+  <!-- Welcome header -->
+  <section class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="text-4xl mb-3">🌽</div>
+      <h1 class="text-2xl md:text-3xl font-bold mb-3">Welcome to Your Dashboard</h1>
+      <p class="text-base md:text-lg max-w-2xl mx-auto">
+        Track your corn purchases and buy fresh corn from Bob's farm
+      </p>
+    </div>
+  </section>
+
+  <!-- Dashboard content -->
+  <section class="py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Statistics -->
+      <app-dashboard-stats></app-dashboard-stats>
+      
+      <!-- Buy corn panel -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+          <!-- Additional content can go here -->
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">🌾 About Our Corn</h3>
+            <p class="text-gray-600 mb-4">
+              Our corn is grown using sustainable farming practices on Bob's family farm. 
+              Each ear is hand-picked at peak ripeness to ensure maximum sweetness and quality.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+              <div class="flex items-center">
+                <span class="mr-2">🌱</span>
+                <span>Organic & Non-GMO</span>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-2">🚚</span>
+                <span>Same-day delivery</span>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-2">❄️</span>
+                <span>Fresh or frozen options</span>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-2">⭐</span>
+                <span>Premium quality guaranteed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <app-buy-corn></app-buy-corn>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+</div>

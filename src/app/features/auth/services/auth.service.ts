@@ -12,11 +12,16 @@ import { tap } from 'rxjs';
 export class AuthService {
   http = inject(HttpClient);
 
-  private _customer = signal<Customer | null>(null);
+  private _customer = signal<Customer | null>(this.getStoredCustomer());
   private _token = signal<string | null>(localStorage.getItem('token'));
 
   customer = computed(() => this._customer());
   token = computed(() => this._token());
+
+  private getStoredCustomer(): Customer | null {
+    const customerData = localStorage.getItem('customer');
+    return customerData ? JSON.parse(customerData) : null;
+  }
 
   login(email: string, password: string) {
     return this.http.post<GeneralResponse<Login>>(`${environment.backendUrl}/auth/login`, { email, password })
@@ -26,6 +31,7 @@ export class AuthService {
             this._token.set(res.data.token);
             localStorage.setItem('token', res.data.token);
             this._customer.set(res.data.customer);
+            localStorage.setItem('customer', JSON.stringify(res.data.customer));
           }
         })
       );
@@ -35,5 +41,6 @@ export class AuthService {
     this._token.set(null);
     this._customer.set(null);
     localStorage.removeItem('token');
+    localStorage.removeItem('customer');
   }
 }
